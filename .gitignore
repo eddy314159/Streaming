@@ -1,0 +1,88 @@
+asio-1.30.2/
+ffmpeg/
+
+
+# Visual Studio
+.vs/
+.vscode/
+
+# Build outputs
+[Bb]in/
+[Oo]bj/
+x64/
+x86/
+Debug/
+Release/
+
+# Visual Studio cache
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# IntelliSense
+*.VC.db
+*.VC.opendb
+*.ipch
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Test Results
+TestResults/
+
+# NuGet
+packages/
+*.nupkg
+
+# ReSharper
+_ReSharper*/
+*.ReSharper
+
+# Visual Assist
+*.VA.db
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake-build-*/
+
+# Generated files
+Generated Files/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Crash dumps
+*.dmp
+
+# Profiling
+*.etl
+
+# Publish
+publish/
+
+# Rider
+.idea/
+
+# Backup files
+*.bak
+*.old
+
+# Python
+__pycache__/
+*.pyc
+
+# AI-related local files
+.cursor/
+.cursor-cache/
+.windsurf/
+
+# Environment files
+.env
+.env.local
