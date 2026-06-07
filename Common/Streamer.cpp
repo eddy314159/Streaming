@@ -52,17 +52,14 @@ void Streamer::stop()
 		runThreads = false;
 	}
 
-	// notify threads to exit
 	captureCv.notify_all();
 	encodeCv.notify_all();
 
-	// join threads
 	if (captureThread.joinable())
 		captureThread.join();
 	if (encodeThread.joinable())
 		encodeThread.join();
 
-	// clear queues
 	{
 		std::lock_guard<std::mutex> lock1(captureMutex);
 		captureQueue.clear();
@@ -115,7 +112,7 @@ void Streamer::encodeLoop()
 			{
 				captureCv.wait_for(lock, std::chrono::milliseconds(10), [this]() { return !captureQueue.empty() || !runThreads; });
 			}
-			if (!captureQueue.empty())
+			else
 			{
 				frame = std::move(captureQueue.front());
 				captureQueue.pop_front();
