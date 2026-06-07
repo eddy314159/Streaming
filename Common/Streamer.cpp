@@ -93,7 +93,6 @@ void Streamer::captureLoop()
 			std::lock_guard<std::mutex> lock(captureMutex);
 			if (captureQueue.size() >= maxCaptureQueueSize)
 			{
-				// drop oldest to bound memory
 				captureQueue.pop_front();
 			}
 			captureQueue.emplace_back(std::move(screen));
@@ -101,8 +100,6 @@ void Streamer::captureLoop()
 
 		encodeCv.notify_one();
 	}
-
-	// notify encoder in case it's waiting
 	encodeCv.notify_one();
 }
 
@@ -116,7 +113,6 @@ void Streamer::encodeLoop()
 			std::unique_lock<std::mutex> lock(captureMutex);
 			if (captureQueue.empty())
 			{
-				// wait for a capture or timeout to re-check runThreads
 				captureCv.wait_for(lock, std::chrono::milliseconds(10), [this]() { return !captureQueue.empty() || !runThreads; });
 			}
 			if (!captureQueue.empty())
