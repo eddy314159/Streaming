@@ -33,28 +33,24 @@ private:
 	H264Encoder encoder;
 	DirectXScreenShot screenshot;
 	StreamInfo streamInfo = { 0 };
-	std::mutex mutex;
 
-	// threading + queues
 	std::thread captureThread;
 	std::thread encodeThread;
 
-	std::deque<std::vector<char>> captureQueue;    // raw screenshots
-	std::deque<std::vector<char>> encodedQueue;    // encoded frames ready to send
+	std::deque<std::vector<char>> captureQueue;    
+	std::deque<std::vector<char>> encodedQueue;
 
 	std::mutex captureMutex;
 	std::mutex encodedMutex;
-	std::condition_variable captureCv;
 	std::condition_variable encodeCv;
 
 	std::atomic<bool> streaming = false;
 	std::atomic<bool> runThreads = false;
-	// indicates an async send is in progress (synchronization flag)
+	
 	std::atomic<bool> sendInProgress = false;
 
 	size_t maxCaptureQueueSize = 5;
 
-	// loops
 	void captureLoop();
 	void encodeLoop();
 

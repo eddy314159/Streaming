@@ -47,12 +47,10 @@ bool Streamer::start(int _framerate, int _bitrate)
 void Streamer::stop()
 {
 	{
-		std::lock_guard<std::mutex> lock(mutex);
 		streaming = false;
 		runThreads = false;
 	}
 
-	captureCv.notify_all();
 	encodeCv.notify_all();
 
 	if (captureThread.joinable())
@@ -97,7 +95,6 @@ void Streamer::captureLoop()
 
 		encodeCv.notify_one();
 	}
-	encodeCv.notify_one();
 }
 
 void Streamer::encodeLoop()
@@ -110,7 +107,7 @@ void Streamer::encodeLoop()
 			std::unique_lock<std::mutex> lock(captureMutex);
 			if (captureQueue.empty())
 			{
-				captureCv.wait_for(lock, std::chrono::milliseconds(10), [this]() { return !captureQueue.empty() || !runThreads; });
+				encodeCv.wait_for(lock, std::chrono::milliseconds(5), [this]() { return !captureQueue.empty() || !runThreads; });
 			}
 			else
 			{
