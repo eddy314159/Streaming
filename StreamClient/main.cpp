@@ -43,7 +43,7 @@ int main()
 
 	Streamer stream;
 
-	stream.connect("noelfic.fr", "12345", _token);
+	stream.connect("127.0.0.1", "12345", _token);
 	
 	while (stream.getStatus() != CLIENT_STATUS::CONNECTED)
 	{

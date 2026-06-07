@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     //Viewer w("localhost", "12345", token);
-    ViewerWindow w("noelfic.fr", "12345", token);
+    ViewerWindow w("127.0.0.1", "12345", token);
     w.show();
     return a.exec();
 }
