@@ -4,10 +4,10 @@
 #include <windows.h>
 #include <dxgi1_2.h>
 #include <d3d11.h>
+#include <wrl/client.h>
 #include <vector>
-#include <iostream>
 
-class DirectXScreenShot 
+class DirectXScreenShot
 {
 public:
     DirectXScreenShot() = default;
@@ -29,9 +29,13 @@ public:
 private:
     bool started = false;
 
-    ID3D11Device* d3dDevice = nullptr;
-    ID3D11DeviceContext* d3dContext = nullptr;
-    IDXGIOutputDuplication* dxgiOutputDuplication = nullptr;
+    Microsoft::WRL::ComPtr<ID3D11Device> d3dDevice;
+    Microsoft::WRL::ComPtr<ID3D11DeviceContext> d3dContext;
+    Microsoft::WRL::ComPtr<IDXGIOutputDuplication> dxgiOutputDuplication;
+
+    // Reusable staging texture and buffer to avoid recreate every frame
+    Microsoft::WRL::ComPtr<ID3D11Texture2D> stagingTexture;
+    std::vector<char> cachedBuffer;
 
     unsigned int width = 0;
     unsigned int height = 0;

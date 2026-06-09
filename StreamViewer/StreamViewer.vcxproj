@@ -63,6 +63,7 @@
     <ClCompile>
       <AdditionalIncludeDirectories>../asio-1.30.2/include;../ffmpeg/include;../Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <AdditionalDependencies>avcodec.lib;avutil.lib;swscale.lib;d3d11.lib;Common.lib;%(AdditionalDependencies)</AdditionalDependencies>

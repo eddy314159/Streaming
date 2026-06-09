@@ -181,7 +181,7 @@ void TcpConnexion::recv()
 
 			std::uint32_t sizeData = reinterpret_cast<std::uint32_t&>((*dataRecv)[0]);
 
-			if (!sizeData)
+			if (!sizeData || sizeData > MAX_DATA_SIZE)
 			{
 				status &= ~TCPCONNEXION_STATUS::RECEVING;
 				dataRecv->clear();
